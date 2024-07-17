@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Student {
+            constructor(phy, che, bio, maths, comp) {
+                this.physics = phy;
+                this.chemistry = che;
+                this.biology = bio;
+                this.mathematics = maths;
+                this.computer = comp;
+            }
+
+            calculatePercentage() {
+                return ((this.physics + this.chemistry + this.biology + this.mathematics + this.computer) / 500) * 100;
+            }
+
+            calculateGrade() {
+                let percentage = this.calculatePercentage();
+                let grade = '';
+
+                if (percentage >= 90) {
+                    grade = 'A';
+                } else if (percentage >= 80) {
+                    grade = 'B';
+                } else if (percentage >= 70) {
+                    grade = 'C';
+                } else if (percentage >= 60) {
+                    grade = 'D';
+                } else if (percentage >= 50) {
+                    grade = 'E';
+                } else {
+                    grade = 'Fail';
+                }
+
+                return grade;
+            }
+        }
+        let phy = parseInt(prompt("Enter Phy marks:"));
+        let chem = parseInt(prompt("Enter Che marks:"));
+        let bio = parseInt(prompt("Enter Bio marks:"));
+        let math = parseInt(prompt("Enter Math marks:"));
+        let comp = parseInt(prompt("Enter Comp marks:"));
+
+        let student = new Student(phy, chem, bio, math, comp);
+
+        let percentage = student.calculatePercentage();
+        let grade = student.calculateGrade();
+
+        console.log("Percentage:", percentage.toFixed(2) + "%");
+        console.log("Grade:", grade);
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Employee{
+            constructor(name,salary,hiredate){
+                this.name = name;
+                this.salary = salary;
+                this.hiredate = new Date(hiredate);
+            }
+
+            yearsOfService(){
+                const today = new Date();
+                const yearsOfService = today.getFullYear() - this.hiredate.getFullYear();
+                const hMonth = this.hiredate.getMonth();
+                const currMonth = today.getMonth();
+
+                if(currMonth < hMonth || (currMonth === hMonth && today.getDate() < this.hiredate.getDate())){
+                    return yearsOfService - 1;
+                }else{
+                    return yearsOfService
+                }
+            }
+        }
+
+        const employee1 = new Employee("Rahul",20000,"2004-07-03");
+        console.log(`${employee1.name} has in service for ${employee1.yearsOfService()} years.`);
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </thead>
+        <tbody id="tb"></tbody>
+    </table>
+    <script>
+       let data = [
+        {
+            name: "jay",
+            email: "jay@gmail.com",
+            phone: "12345",
+        },
+        {
+            name: "ajay",
+            email: "ajay@gmail.com",
+            phone: "12345",
+        },
+        {
+            name: "vijay",
+            email: "vijay@gmail.com",
+            phone: "12345",
+        },
+        {
+            name: "ashish",
+            email: "ashish@gmail.com",
+            phone: "12345",
+        },
+       ];
+
+       class Table{
+        constructor(){
+            let tb = document.getElementById("tb")
+            data.map((val) => {
+                let tr = document.createElement("tr");
+                tr.innerHTML = `<td>${val.name}</td>
+                                <td>${val.email}</td>
+                                <td>${val.phone}</td>`
+
+                tb.appendChild(tr)                
+            })
+        }
+       }
+
+       let d1 = new Table();
+      
+    </script>
+</body>
+</html>
