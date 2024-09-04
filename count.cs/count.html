@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="count.css">
+</head>
+<body>
+    <div class="counter-container">
+        <h1>Counter</h1>
+        <div class="buttons">
+            <button id="decrement"><img src="img/decrement.png" alt=""></button>
+            <div id="counter">0</div>
+            <button id="increment"><img src="img/increment.png" alt=""></button>
+        </div>
+        <button id="reset">Reset</button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let counter = 0;
+
+            const counterDisplay = document.getElementById('counter');
+            const incrementButton = document.getElementById('increment');
+            const decrementButton = document.getElementById('decrement');
+            const resetButton = document.getElementById('reset');
+
+            incrementButton.addEventListener('click', () => {
+                counter++;
+                updateCounterDisplay();
+            });
+
+            decrementButton.addEventListener('click', () => {
+                counter--;
+                updateCounterDisplay();
+            });
+
+            resetButton.addEventListener('click', () => {
+                counter = 0;
+                updateCounterDisplay();
+            });
+
+            function updateCounterDisplay() {
+                counterDisplay.textContent = counter;
+            }
+        });
+    </script>
+</body>
+</html>

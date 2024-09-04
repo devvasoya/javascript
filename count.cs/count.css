@@ -1,0 +1,52 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.counter-container {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#counter {
+    font-size: 2em;
+    margin: 30px;
+}
+
+button {
+    font-size: 1em;
+    padding: 5px 10px;
+    margin: 0px 10px 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.buttons{
+    display: flex;
+}
+
+#increment {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 5px;
+}
+
+#decrement {
+    background-color: #f44336;
+    color: white;
+}
+
+#reset {
+    background-color: #008CBA;
+    color: white;
+}
