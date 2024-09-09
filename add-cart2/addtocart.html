@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY FOODS</title>
+    <link rel="shortcut icon" href="img/food (2).png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body style="background-color: #ffffff;">
+    <header style="background-color: #020202; margin-bottom: 30px;">
+        <nav class="navbar" style="padding: 5px;">
+            <div class="container-fluid">
+                <a class="text-white" style="text-decoration: none;" href="#"><img src="img/food (2).png" alt="">FOOD
+                    PRODUCT</a>
+                <div class="">
+                    <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Cart</button>
+                    <div class="offcanvas offcanvas-end" style="width: 50%; background-color: #a0a0a0;" tabindex="-1"
+                        id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                        <div class="offcanvas-header" style="background-color: #484848;">
+                            <a class="text-white" style="text-decoration: none;" href="#">FOOD PRODUCT</a>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <h2 align="center" style="color: white;">Cart</h2>
+                            <div class="row">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="carts"></tbody>
+                                </table>
+                                <h2 id="ftotal" style="color: white;"></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="row" id="products"></div>
+    </div>
+
+    <script>
+        let products = [
+            { id: 1, name: "Plain", price: 40, qty: 1, image: "https://www.tutorjoes.in/public/js_program/12_cart/images/97.jpg" },
+            { id: 2, name: "Paper Roast", price: 65, qty: 1, image: "https://www.tutorjoes.in/public/js_program/12_cart/images/98.jpg" },
+            { id: 3, name: "Onion Roast", price: 80, qty: 1, image: "https://www.tutorjoes.in/public/js_program/12_cart/images/99.jpg" },
+            { id: 4, name: "Egg Parotta", price: 55, qty: 1, image: "https://www.tutorjoes.in/public/js_program/12_cart/images/100.jpg" },
+            { id: 5, name: "Pizza", price: 550, qty: 1, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-rDGj4fh3vpgFnwJTH8pnAfnLb-VfviiIOA&s" },
+            { id: 6, name: "French Fries", price: 150, qty: 1, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQL43ocnQwttbqmo3hWxQHHv7Z3MJqLcTmpw&s" },
+            { id: 7, name: "Burger", price: 200, qty: 1, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS92IdgvZbiWywxgIw1Yxd_IHVyKsfOyBAxWQ&s" },
+            { id: 8, name: "Coffee", price: 100, qty: 1, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJYZiS3hMXPHkvnaqLvEVxEuQ3-UFFIeFXuA&s" },
+        ];
+
+        const viewProduct = () => {
+            let tbl = "";
+            products.map((val) => {
+                tbl += `
+          <div class="card mb-4" style="max-width: 400px; border:0px; background-color:transparent;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="${val.image}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">${val.name}</h5>
+                  <p class="card-text">Rs: ${val.price}</p>
+                  <button onclick="addToCart(${val.id})" class="btn btn-primary">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+            });
+            document.getElementById('products').innerHTML = tbl;
+        };
+        viewProduct();
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        const addToCart = (pid) => {
+            const product = products.find(val => val.id === pid);
+            const exists = cart.find(item => item.id === pid);
+
+            if (exists) {
+                exists.qty += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    qty: product.qty,
+                    image: product.image
+                });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            viewCart();
+        }
+
+        const viewCart = () => {
+            let allcart = JSON.parse(localStorage.getItem('cart')) || [];
+            let tbl = "";
+            let sum = 0;
+            allcart.forEach((val, index) => {
+                sum += val.price * val.qty;
+                tbl += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${val.name}</td>
+            <td><img src="${val.image}" width="100"/></td>
+            <td>Price: ${val.price}</td>
+            <td><input class="form-control w-25" id="qty-${val.id}" onchange="editCart(${val.id})" value="${val.qty}" type="number"/></td>
+            <td>${val.price * val.qty}</td>
+            <td><button class="btn btn-danger" onclick="cartdelete(${val.id})">Delete</button></td>
+          </tr>
+        `;
+            });
+            document.getElementById('carts').innerHTML = tbl;
+            document.getElementById('ftotal').innerHTML = `Total = Rs ${sum}`;
+        }
+
+        const editCart = (id) => {
+            let allcart = JSON.parse(localStorage.getItem('cart')) || [];
+            const item = allcart.find(val => val.id === id);
+            const newQty = document.getElementById(`qty-${id}`).value;
+
+            if (item && newQty > 0) {
+                item.qty = parseInt(newQty);
+                localStorage.setItem('cart', JSON.stringify(allcart));
+                viewCart();
+            } else {
+                cartdelete(id);
+            }
+        }
+
+        const cartdelete = (id) => {
+            let allcart = JSON.parse(localStorage.getItem('cart')) || [];
+            allcart = allcart.filter(val => val.id !== id);
+            localStorage.setItem('cart', JSON.stringify(allcart));
+            viewCart();
+        }
+
+        document.addEventListener("DOMContentLoaded", viewCart);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
