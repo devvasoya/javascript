@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Carts</title>
+</head>
+<body>
+    <div align="center">
+        <h2>View Carts</h2>
+        <table border="2" cellpadding="4">
+            <thead>
+                <tr>
+                    <th>Cart ID</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Total Products</th>
+                    <th>Total Quantity</th>
+                    <th>Total Price</th>
+                    <th>Discounted Total</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody id="cartsdata"></tbody>
+        </table>
+    </div>
+
+    <script>
+        fetch('https://dummyjson.com/carts')
+            .then(response => response.json())
+            .then(data => {
+                let tableContent = '';
+                data.carts.map(cart => {
+                    cart.products.map(product => {
+                        tableContent += `
+                            <tr>
+                                <td>${cart.id}</td>
+                                <td>${product.title}</td>
+                                <td>${product.price}</td>
+                                <td>${cart.totalProducts}</td>
+                                <td>${cart.totalQuantity}</td>
+                                <td>${cart.total}</td>
+                                <td>${cart.discountedTotal}</td>
+                                <td><img src="${product.thumbnail}" alt="Thumbnail" width="90"></td>
+                            </tr>
+                        `;
+                    });
+                });
+                document.getElementById('cartsdata').innerHTML = tableContent;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
