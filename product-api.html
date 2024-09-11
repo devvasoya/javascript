@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Products</title>
+</head>
+<body>
+    <div align="center">
+        <h2>View Products</h2>
+        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Thumbnail</th>
+                    <th>Title</th>
+                    <th>Tags</th>
+                    <th>Reviews</th>
+                    <th>Images</th>
+                </tr>
+            </thead>
+            <tbody id="productsdata"></tbody>
+        </table>
+    </div>
+
+    <script>
+        fetch('https://dummyjson.com/products')
+            .then(response => response.json())
+            .then(data => {
+                let tableContent = '';
+                data.products.forEach(product => {
+                    let tags = '';
+                    product.tags.forEach(tag => {
+                        tags += `${tag} , `;
+                    });
+                    tags = tags.slice(0, -2);
+
+                    let images = '';
+                    product.images.forEach(image => {
+                        images += `<img src="${image}" alt="Image" width="100"> `;
+                    });
+
+                    let reviews = '';
+                    product.reviews.forEach(review => {
+                        reviews += `
+                            <div>
+                                Review :- ${review.comment}<br>
+                                ReviewerName :- ${review.reviewerName}<br>
+                                Rating :- ${review.rating}
+                            </div>
+                        `;
+                    });
+
+                    tableContent += `
+                        <tr>
+                            <td>${product.id}</td>
+                            <td><img src="${product.thumbnail}" alt="Thumbnail" width="100"></td>
+                            <td>${product.title}</td>
+                            <td>${tags}</td>
+                            <td>${reviews}</td>
+                            <td>${images}</td>
+                        </tr>
+                    `;
+                });
+                document.getElementById('productsdata').innerHTML = tableContent;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
