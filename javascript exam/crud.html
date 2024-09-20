@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crud opration </title>
+</head>
+<body align="center">
+    <h2>studant data form </h2> 
+    <input type="text" placeholder="student name" id="studentname">
+    <input type="number" placeholder="student age" id="studentage">
+    <input type="text" placeholder="student grade" id="studentgrade"><br><br>
+    <button type="submit" onclick="adddata()">submit</button>
+    <button type="edit" onclick="updatedata()">update</button>
+    <br><br>    
+
+    <table border="1" align="center">
+        <thead>
+            <th>Number</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Grade</th>
+            <th>action</th>
+
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+    </table>
+    <script src="crud.js"></script>
+</body>
+</html>
